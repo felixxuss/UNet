@@ -1,0 +1,8 @@
+# gitignore figs folder
+saves/
+
+# no data upload
+data/
+
+# no cache upload
+__*
