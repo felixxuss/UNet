@@ -71,7 +71,7 @@ class UNet(torch.nn.Module):
         # Encoder
         skips = []
         for name, block in self.enc.items():
-            x = block(x) if isinstance(block, UNetBlock) else block(x)
+            x = block(x)
             if f'block{self.num_blocks-1}' in name:  # Last UNetBlock in each level
                 skips.append(x)
         # Decoder.
