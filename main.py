@@ -30,7 +30,7 @@ python main.py --epochs=100 --verbose --save_models --device="cuda"
 def main(args):
     # load the dataset
     train_loader, val_loader = get_oxford_data_loaders(args)
-    print(
+    print_message(
         f"train_loader: {len(train_loader.dataset)}\tval_loader: {len(val_loader.dataset)}")
 
     # create the model
@@ -47,12 +47,13 @@ def main(args):
             model, inputs=[torch.rand(2, 3, resolution, resolution)])
 
     # train the model
+    print_message(f"Start training for {args.epochs} epochs")
     dict_log = train(model, train_loader, val_loader, criterion, metric, args)
 
     # plot/show the results
-    plot_stats(dict_log, modelname="Model Training",
-               scale_metric=100, path="saves/train_plot")
-    sr = ShowResults(args.num_classes)
+    # plot_stats(dict_log, modelname="Model Training",
+    #            scale_metric=100, path="saves/train_plot")
+    sr = ShowResults(args.num_classes, n_results=7)
     sr.show_preds(model, train_loader, args)
 
 
@@ -83,6 +84,12 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    ##########
+    args.subset = True
+    args.subset_size = 8
+    args.epochs = 10
+    ##########
+
     main(args)
 
-    print("Done!")
+    print_message("Done!")
