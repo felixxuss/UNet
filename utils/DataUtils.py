@@ -65,14 +65,14 @@ class MaskToTensor(object):
 def get_oxford_data_loaders(args):
     size = (300, 300)
     transform_imgs = transforms.Compose([
-        transforms.Resize(size),
+        transforms.CenterCrop(size),
         transforms.ToTensor(),
         transforms.Normalize(-1, 2),
         transforms.ColorJitter(0.2, 0.2, 0.2, 0.2),
         transforms.Normalize(0.5, 0.5),])
 
     transform_masks = transforms.Compose([
-        transforms.Resize(size),
+        transforms.CenterCrop(size),
         transforms.ToTensor(),
         MaskToTensor(),
     ])
