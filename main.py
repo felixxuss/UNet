@@ -80,15 +80,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    #############################
-    args.subset = True
-    args.subset_size = 8
-    args.epochs = 10
-    # args.show_model = True
-    args.num_classes = 3
-    #############################
-    print(args)
-    exit()
     main(args)
 
     print("Done!")
