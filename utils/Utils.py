@@ -130,3 +130,8 @@ def print_module_summary(module, inputs, max_nesting=3, skip_redundant=True, **k
               for cell, width in zip(row, widths)))
     print()
     # return outputs
+
+
+def print_message(msg):
+    print()
+    print(msg)

@@ -1,6 +1,7 @@
 import torch
 from torchvision import transforms, datasets
 from torch.utils.data import DataLoader
+import numpy as np
 
 
 def get_manual_data_loaders(args):
@@ -43,25 +44,35 @@ def get_manual_data_loaders(args):
 
 # Custom transformation to convert the mask image to class labels
 class MaskToTensor(object):
+    """
+    For oxford dataset:
+    0, 2 -> segment
+    2 -> background
+    """
+
     def __call__(self, mask: torch.tensor):
         new_mask = torch.zeros_like(mask, dtype=torch.long)
-        unique_values = mask.unique()
+        unique_values = sorted(mask.unique())
         for i, value in enumerate(unique_values):
-            new_mask[mask == value] = i
+            if i in [0, 2]:
+                c = 1
+            else:
+                c = 0
+            new_mask[mask == value] = c
         return new_mask
 
 
 def get_oxford_data_loaders(args):
     size = (300, 300)
     transform_imgs = transforms.Compose([
-        transforms.CenterCrop(size),
+        transforms.Resize(size),
         transforms.ToTensor(),
         transforms.Normalize(-1, 2),
         transforms.ColorJitter(0.2, 0.2, 0.2, 0.2),
         transforms.Normalize(0.5, 0.5),])
 
     transform_masks = transforms.Compose([
-        transforms.CenterCrop(size),
+        transforms.Resize(size),
         transforms.ToTensor(),
         MaskToTensor(),
     ])
@@ -78,7 +89,7 @@ def get_oxford_data_loaders(args):
     if args.subset:
         print(f"Created subset of dataset of size {args.subset_size}")
         dataset = torch.utils.data.Subset(
-            dataset, list(range(args.subset_size)))
+            dataset, list(np.random.randint(0, len(dataset), args.subset_size)))
 
     train_length = int(len(dataset)*0.8)
     val_length = len(dataset) - train_length

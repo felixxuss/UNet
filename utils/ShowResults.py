@@ -10,8 +10,8 @@ class ShowResults:
 
         self.n_classes = n_classes
         self.colors = [[0,   0,   0],
-                       [70, 143, 67],
                        [72, 179, 189],
+                       [70, 143, 67],
                        [70, 70, 70],
                        [102, 102, 156],
                        [190, 153, 153],
@@ -63,6 +63,7 @@ class ShowResults:
         plt.axis("off")
         plt.title("Predicted")
         self.seg_show(pred)
+
         plt.show()
 
     def img_show(self, img, mean, std):
@@ -88,7 +89,7 @@ class ShowResults:
         r = temp.copy()
         g = temp.copy()
         b = temp.copy()
-        # 19npossible colors
+        # self.n_classes possible colors
         for l in range(self.n_classes):
             r[temp == l] = self.label_colours[l][0]
             g[temp == l] = self.label_colours[l][1]
