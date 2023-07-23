@@ -23,6 +23,9 @@ for training:
 python main.py --epochs=100 --verbose --save_models --device="cuda"
 """
 
+# TODO: Update the README.md file with the following information:
+# 1. how to use the command line arguments
+
 
 def main(args):
     # load the dataset
