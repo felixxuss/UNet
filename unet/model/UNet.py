@@ -6,7 +6,7 @@ from unet.modules.Conv2D import Conv2d
 
 
 class UNet(torch.nn.Module):
-    def __init__(self, resolution, out_channels, in_channels=3, kernel_size=3, base_channels=32, channel_mult=[1, 2, 4], num_blocks=1, dropout=0.10, bilinear=False, pooling=False):
+    def __init__(self, resolution: int, out_channels: int, in_channels=3, kernel_size=3, base_channels=32, channel_mult=[1, 2, 4], num_blocks=1, dropout=0.10, bilinear=False, pooling=False):
         """
         Args:
             resolution:     Image resolution at input/output.

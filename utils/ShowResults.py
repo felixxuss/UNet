@@ -5,7 +5,17 @@ from torchvision import transforms
 
 
 class ShowResults:
-    def __init__(self, n_classes, n_results=1) -> None:
+    """
+    Class to show the results of a model
+    """
+
+    def __init__(self, n_classes: int, n_results=1) -> None:
+        """Initializes the class
+
+        Args:
+            n_classes (int): number of different segment classes
+            n_results (int, optional): Number of sample outputs that shall be shown. Defaults to 1.
+        """
         self.n_results = n_results
 
         self.n_classes = n_classes
@@ -34,6 +44,7 @@ class ShowResults:
         self.label_colours = dict(zip(range(self.n_classes), self.colors))
 
     def show_preds(self, model, loader, args, ignore_index=250):
+        """Shows the predictions of a model"""
         model.eval()
         model = model.to(args.device)
         imgs, segs = next(iter(loader))
@@ -84,6 +95,10 @@ class ShowResults:
         plt.imshow(seg)
 
     def decode_segmap(self, temp):
+        """
+        Args:
+            temp (torch.tensor): Segmentation map
+        """
         # convert gray scale to color
         temp = temp.numpy()
         r = temp.copy()

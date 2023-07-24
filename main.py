@@ -8,7 +8,7 @@ from torchmetrics.classification import MulticlassJaccardIndex as iou
 from utils.Utils import *
 from utils.TrainUtils import *
 from unet.model.UNet import UNet
-from utils.DataUtils import get_manual_data_loaders, get_oxford_data_loaders
+from utils.DataUtils import get_city_scapes_data_loaders, get_oxford_data_loaders
 from utils.ShowResults import ShowResults
 
 ignore_index = 250
@@ -27,7 +27,7 @@ python main.py --epochs=100 --verbose --save_models --device="cuda"
 # 1. how to use the command line arguments
 
 
-def main(args):
+def main(args: argparse.Namespace):
     # load the dataset
     train_loader, val_loader = get_oxford_data_loaders(args)
     print_message(
@@ -73,7 +73,6 @@ if __name__ == "__main__":
     # training specific
     parser.add_argument("--exp_name", type=str, default="UNet")
     parser.add_argument("--verbose", action="store_true")
-    parser.add_argument("--print_freq", type=int, default=10)
     parser.add_argument("--show_model", action="store_true")
     parser.add_argument("--save_models", action="store_true")
 

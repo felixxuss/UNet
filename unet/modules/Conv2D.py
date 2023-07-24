@@ -2,7 +2,7 @@ import torch.nn as nn
 
 
 class Conv2d(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel=1, bias=True,
+    def __init__(self, in_channels: int, out_channels: int, kernel=1, bias=True,
                  up=False, down=False, bilinear=False, pooling=False):
         """
         Args:

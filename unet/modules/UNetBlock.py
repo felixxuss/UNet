@@ -5,7 +5,7 @@ from unet.modules.Conv2D import Conv2d
 
 
 class UNetBlock(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel=0, up=False, down=False,
+    def __init__(self, in_channels: int, out_channels: int, kernel=0, up=False, down=False,
                  dropout=0, eps=1e-5, bilinear=False, pooling=False):
         """
         Args:

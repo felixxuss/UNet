@@ -4,7 +4,18 @@ from torch.utils.data import DataLoader
 import numpy as np
 
 
-def get_manual_data_loaders(args):
+def get_city_scapes_data_loaders(args):
+    """Method to get the data loaders from a saved dataset
+    The path to the dataset is specified in the command line arguments
+    The difference to the other dataset is that the data isn't loaded from pytroch
+    The implementation is an example of how to load data from a custom dataset
+
+    Args:
+        args: Command line arguments
+
+    Returns:
+        A train and validation data loader
+    """
     data_path = args.data_path
     transform_imgs = transforms.Compose([transforms.Normalize(-1, 2),
                                         transforms.ColorJitter(
@@ -63,6 +74,9 @@ class MaskToTensor(object):
 
 
 def get_oxford_data_loaders(args):
+    """
+    Method to get the data loaders for the oxford dataset
+    """
     size = (300, 300)
     transform_imgs = transforms.Compose([
         transforms.CenterCrop(size),
@@ -114,6 +128,10 @@ def get_oxford_data_loaders(args):
 
 
 class CityscapesDownsampled(torch.utils.data.Dataset):
+    """
+    Used in the data loading of the cityscapes dataset
+    """
+
     def __init__(self, img_path, label_path, transform=None, target_transform=None):
         self.ignore_index = 250
         self.img_path = img_path
@@ -142,6 +160,10 @@ class CityscapesDownsampled(torch.utils.data.Dataset):
 
 
 class CityscapesSubset(CityscapesDownsampled):
+    """
+    Used in the data loading of the cityscapes dataset
+    """
+
     def __init__(self, dataset, indices, **params):
         super().__init__(**params)
         self.train_dataset_test = torch.utils.data.Subset(dataset, indices)

@@ -3,7 +3,20 @@ import numpy as np
 import torch
 
 
-def train_one_epoch(model, optimizer, train_loader, device, criterion, metric):
+def train_one_epoch(model, optimizer, train_loader, device: str, criterion, metric):
+    """_summary_
+
+    Args:
+        model
+        optimizer: Adam
+        train_loader: Dataloader
+        device (str): cpu or cuda
+        criterion: cross entropy loss
+        metric: Used metric: Intersection over Union (IoU)
+
+    Returns:
+        loss of the current epoch, value of the metric of the current epoch
+    """
     loss_step, metric_step = [], []
 
     model.train()
@@ -31,6 +44,18 @@ def train_one_epoch(model, optimizer, train_loader, device, criterion, metric):
 
 
 def validate(model, val_loader, criterion, metric, args):
+    """Calculates a validation score for a given model
+
+    Args:
+        model
+        val_loader: Dataloader
+        criterion: cross entropy loss
+        metric: Used metric: Intersection over Union (IoU)
+        args: Command line arguments
+
+    Returns:
+        loss of the current epoch, value of the metric of the current epoch
+    """
     loss_step, metric_step = [], []
 
     model.eval()
@@ -53,6 +78,19 @@ def validate(model, val_loader, criterion, metric, args):
 
 
 def train(model, train_loader, val_loader, criterion, metric, args):
+    """Trains a given model with the train_loader and validates it with the val_loader
+
+    Args:
+        model
+        train_loader: DataLoader
+        val_loader: DataLoader
+        criterion: cross entropy loss
+        metric: Used metric: Intersection over Union (IoU)
+        args: Command line arguments
+
+    Returns:
+        dict_log: Dictionary with the training and validation loss and metric
+    """
     optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
     best_val_metric = -1
     model = model.to(args.device)

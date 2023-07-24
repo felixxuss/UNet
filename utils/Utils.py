@@ -4,7 +4,7 @@ from easydict import EasyDict
 from datetime import datetime
 
 
-def load_model(model, path):
+def load_model(model, path: str):
     checkpoint = torch.load(path)
     model.load_state_dict(checkpoint['model_state_dict'])
     print(
@@ -12,7 +12,7 @@ def load_model(model, path):
     return model
 
 
-def plot_stats(dict_log, modelname="", path=None, scale_metric=100):
+def plot_stats(dict_log: dict, modelname="", path=None, scale_metric=100):
     plt.figure(figsize=(15, 10))
     fontsize = 14
     plt.subplots_adjust(hspace=0.3)
@@ -50,7 +50,7 @@ def plot_stats(dict_log, modelname="", path=None, scale_metric=100):
         plt.savefig(f"{path}_{time}.png")
 
 
-def print_module_summary(module, inputs, max_nesting=3, skip_redundant=True, **kwargs):
+def print_module_summary(module: torch.nn.Module, inputs: list, max_nesting=3, skip_redundant=True, **kwargs):
     assert isinstance(module, torch.nn.Module)
     assert not isinstance(module, torch.jit.ScriptModule)
     assert isinstance(inputs, (tuple, list))
@@ -132,6 +132,6 @@ def print_module_summary(module, inputs, max_nesting=3, skip_redundant=True, **k
     # return outputs
 
 
-def print_message(msg):
+def print_message(msg: str) -> None:
     print()
     print(msg)
