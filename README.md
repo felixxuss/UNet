@@ -1,6 +1,6 @@
 # UNet implementation
 
-This is an implementation of the UNet architecture (https://arxiv.org/abs/1505.04597)
+This is an implementation of the UNet architecture for image segmentation. (https://arxiv.org/abs/1505.04597)
 
 The code comes with two different ways of loading data into the model. First by using a saved dataset in a directory. Second by using a dataset provided by ```torchvision.datasets```.
 
